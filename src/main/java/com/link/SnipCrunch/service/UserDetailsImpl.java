@@ -1,4 +1,5 @@
 package com.link.SnipCrunch.service;
+import com.link.SnipCrunch.models.User;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
