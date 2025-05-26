@@ -9,7 +9,7 @@
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>3.5.0-M1</version>
-    <relativePath/> <!-- lookup parent from repository -->
+    <relativePath/>
   </parent>
 
   <groupId>com.link</groupId>
@@ -20,6 +20,8 @@
 
   <properties>
     <java.version>23</java.version>
+    <maven.compiler.release>23</maven.compiler.release>
+    <lombok.version>1.18.30</lombok.version>
   </properties>
 
   <dependencies>
@@ -28,25 +30,23 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
-    <!-- PostgreSQL JDBC driver for Neon DB -->
+    <!-- PostgresSQL JDBC driver -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.6.0</version> <!-- latest stable -->
+      <version>42.6.0</version>
     </dependency>
 
-    <!-- dotenv for environment variables -->
+    <!-- dotenv for env vars -->
     <dependency>
       <groupId>io.github.cdimascio</groupId>
       <artifactId>dotenv-java</artifactId>
@@ -60,7 +60,7 @@
       <optional>true</optional>
     </dependency>
 
-    <!-- JWT dependencies -->
+    <!-- JWT -->
     <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt-api</artifactId>
@@ -94,11 +94,16 @@
 
   <build>
     <plugins>
-      <!-- Compiler plugin to support annotation processing for Lombok -->
+      <!-- Maven Compiler Plugin with Java 23 and preview enabled -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
+          <release>${maven.compiler.release}</release>
+          <compilerArgs>
+            <arg>--enable-preview</arg>
+          </compilerArgs>
           <annotationProcessorPaths>
             <path>
               <groupId>org.projectlombok</groupId>
@@ -109,11 +114,12 @@
         </configuration>
       </plugin>
 
-      <!-- Spring Boot Maven plugin -->
+      <!-- Spring Boot Plugin with preview flags -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
+          <jvmArguments>--enable-preview</jvmArguments>
           <excludes>
             <exclude>
               <groupId>org.projectlombok</groupId>

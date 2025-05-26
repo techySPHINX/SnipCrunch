@@ -5,7 +5,7 @@ import com.link.SnipCrunch.dtos.RegisterRequest;
 import com.link.SnipCrunch.models.User;
 import com.link.SnipCrunch.service.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity; 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
