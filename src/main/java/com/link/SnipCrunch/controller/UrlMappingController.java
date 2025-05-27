@@ -6,6 +6,7 @@ import com.link.SnipCrunch.models.User;
 import com.link.SnipCrunch.service.UrlMappingService;
 import com.link.SnipCrunch.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -50,11 +51,12 @@ public class UrlMappingController {
                                                                @RequestParam("startDate") String startDate,
                                                                @RequestParam("endDate") String endDate){
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-        LocalDateTime start = LocalDateTime.parse(startDate, formatter);
-        LocalDateTime end = LocalDateTime.parse(endDate, formatter);
+        LocalDateTime start = LocalDateTime.parse(startDate.trim(), formatter);
+        LocalDateTime end = LocalDateTime.parse(endDate.trim(), formatter);
         List<ClickEventDTO> clickEventDTOS = urlMappingService.getClickEventsByDate(shortUrl, start, end);
         return ResponseEntity.ok(clickEventDTOS);
     }
+
 
 
     @GetMapping("/totalClicks")
@@ -64,9 +66,11 @@ public class UrlMappingController {
                                                                      @RequestParam("endDate") String endDate){
         DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
         User user = userService.findByUsername(principal.getName());
-        LocalDate start = LocalDate.parse(startDate, formatter);
-        LocalDate end = LocalDate.parse(endDate, formatter);
+        LocalDate start = LocalDate.parse(startDate.trim(), formatter);
+        LocalDate end = LocalDate.parse(endDate.trim(), formatter);
         Map<LocalDate, Long> totalClicks = urlMappingService.getTotalClicksByUserAndDate(user, start, end);
         return ResponseEntity.ok(totalClicks);
     }
+
+
 }
